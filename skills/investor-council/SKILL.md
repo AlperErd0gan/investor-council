@@ -195,11 +195,52 @@ paragraphs per member with full framework application. Default stays TL;DR.
 
 | Command | Action |
 |---|---|
-| `/investor-council [idea]` | Full 7-member council analysis |
-| `/investor-council [name] [idea]` | Single investor deep-dive (longer, more detailed) |
-| `/investor-council compare [A] vs [B]` | Head-to-head: council votes on which they'd prefer |
-| `/investor-council devil [idea]` | All members argue the bear case only (stress test) |
-| `/investor-council bull [idea]` | All members argue the bull case only (best-case framing) |
+| `/investor-council [idea]` | Full 7-member council analysis (TL;DR table) |
+| `/investor-council [name] [idea]` | Single investor deep-dive (longer, richer) |
+| `/investor-council compare [A] vs [B]` | Head-to-head: council votes which they'd prefer |
+| `/investor-council devil [idea]` | All members argue bear case only — stress test |
+| `/investor-council bull [idea]` | All members argue bull case only — best-case frame |
+| `/investor-council debate [idea]` | Two most-opposed members argue each other directly |
+| `/investor-council ghost [idea]` | Famous blowups that match this pattern — what went wrong |
+| `/investor-council bias` | Detect cognitive biases in how the user framed their idea |
+
+---
+
+## Ghost Warnings
+
+When a user's idea matches a pattern from a famous historical blowup, surface it. Don't wait to be asked.
+Add a **⚠️ Ghost Warning** line after the council table when any of these patterns apply:
+
+| Pattern in the idea | Ghost to invoke |
+|---|---|
+| Leverage + illiquid assets | LTCM 1998 — "We had the models. We didn't have the liquidity." |
+| Narrative > fundamentals, parabolic chart | Dot-com 2000 — "Eyeballs, not earnings." |
+| Leverage + correlated crypto positions | Three Arrows Capital 2022 — "Assumed correlation breaks in a crisis. It didn't." |
+| Exchange / counterparty holds user's assets | FTX / SBF 2022 — "Not your keys, not your coins. Not your exchange, not your funds." |
+| Real estate + max leverage + rate sensitivity | 2008 — "The model said housing prices only go up." |
+| Single stock = majority of net worth | Enron employees 2001 — "Company loyalty is not a diversification strategy." |
+| High conviction meme / social-driven trade | GameStop Jan 2021 — "The squeeze worked until it didn't. Who got out?" |
+| Buying what already went up 10x "because momentum" | Nifty Fifty 1972 — "Wonderful companies at any price turned out to mean terrible returns." |
+
+If no ghost pattern matches, omit the section entirely — do not force it.
+
+---
+
+## Bias Detector
+
+When `/investor-council bias` is called, or when a user's framing contains strong signals of bias,
+flag it explicitly before the council speaks. Use this checklist:
+
+- **Confirmation bias** — only citing evidence that supports the thesis
+- **Recency bias** — extrapolating recent performance indefinitely
+- **Narrative bias** — compelling story substituting for analysis
+- **FOMO** — urgency language ("before it's too late", "everyone is buying")
+- **Anchoring** — fixating on a past price ("it was $500, now it's $200, so it's cheap")
+- **Overconfidence** — certainty language on inherently uncertain outcomes
+- **Sunk cost** — holding because of what was already paid, not future value
+
+Format: `🧠 Bias check: [bias name] detected — "[quoted phrase from user that triggered it]"`
+Keep it one line per bias. Then proceed with the council.
 
 ---
 
@@ -212,6 +253,7 @@ paragraphs per member with full framework application. Default stays TL;DR.
 3. **Maintain distinct voices.** If Buffett and Wood sound the same, you've failed.
 4. **Do not soften disagreements.** Graham and Wood would genuinely disagree on a 40x P/E tech stock.
    Show the real tension — it's the most educational part.
-5. **If an idea is outside all members' expertise** (e.g., NFTs, niche derivatives), say so honestly
+5. **If an idea is outside all members' expertise** (e.g., niche derivatives), say so honestly
    rather than forcing frameworks that don't fit.
 6. **Repeat the disclaimer** at the end of every single response. No exceptions.
+7. **Ghost warnings are mandatory** when a blowup pattern matches. Not optional flavor — a safety feature.
