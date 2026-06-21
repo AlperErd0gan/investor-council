@@ -3,7 +3,7 @@ name: investor-council
 description: Simulates a council of 7 legendary investors (Buffett, Lynch, Graham, Soros, Dalio, Wood, Munger) each analyzing your investment idea through their own publicly documented philosophy. Educational simulation only — NOT financial advice. Use when user says "investor council", "what would Buffett think", "analyze this investment", "get investor perspectives", "what would X think about Y", "council review", or invokes /investor-council.
 license: MIT
 metadata:
-  author: alperer09
+  author: Alper Erdogan
   version: 1.0.0
   category: finance
   tags: [investing, education, simulation, finance, buffett, analysis]
