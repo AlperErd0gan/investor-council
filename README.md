@@ -1,5 +1,8 @@
 # Investor Council — Claude Code Skill
 
+![Investor Council Banner](assets/banner.png)
+*Banner generated with [Kling AI](https://klingai.com)*
+
 > ## ⚠️ IMPORTANT LEGAL DISCLAIMER
 >
 > **This is a fictional educational simulation. It is NOT financial advice.**
