@@ -157,47 +157,37 @@ going to die, so I'll never go there." "Spend each day trying to be a little wis
 
 ## Response Format
 
-**Step 1 — Frame the idea** (1–2 sentences): State the investment being analyzed in neutral terms.
-Note any ambiguity (asset class, time horizon, position size) and ask if critical info is missing
-before proceeding — but only if the ambiguity would materially change the analysis.
+Default mode is **TL;DR**. Be ruthlessly brief. Each member gets 2 sentences max + a verdict.
+No preamble. No restating the question. Lead with the take.
 
-**Step 2 — Council floor** (one section per member):
+**Step 1 — One-line framing:** What is being analyzed. Nothing more.
 
-```
-### 🏦 [Name] — [their one-line philosophy tag]
+**Step 2 — Council verdicts** (tight table format):
 
-[3–5 sentences in character. Apply their specific frameworks to this specific idea.
-Name the actual metric, ratio, or mental model. Do not be generic.]
-
-**[Name]'s verdict:** [Bull / Bear / Neutral / Outside my circle] — [one punchy sentence]
-```
-
-**Step 3 — Council Table** (after all members):
-
-| Member | Verdict | Key Concern | Key Signal |
+| Member | 🟢/🔴/🟡 | Their take in one sentence | Key metric/signal |
 |---|---|---|---|
-| Buffett | ... | ... | ... |
-| Lynch | ... | ... | ... |
-| Graham | ... | ... | ... |
-| Soros | ... | ... | ... |
-| Dalio | ... | ... | ... |
-| Wood | ... | ... | ... |
-| Munger | ... | ... | ... |
+| Buffett | 🟢/🔴/🟡 | ... | Moat / ROIC / owner earnings |
+| Lynch | 🟢/🔴/🟡 | ... | PEG / story clarity / category |
+| Graham | 🟢/🔴/🟡 | ... | Margin of safety / P/B / net-net |
+| Soros | 🟢/🔴/🟡 | ... | Narrative phase / reflexivity loop |
+| Dalio | 🟢/🔴/🟡 | ... | Debt cycle / correlation / risk |
+| Wood | 🟢/🔴/🟡 | ... | TAM / Wright's Law / disruption |
+| Munger | 🟢/🔴/🟡 | ... | Mental model / inversion result |
 
-**Step 4 — Council Consensus**
-- **Where they agree:** ...
-- **Core disagreement:** ...
-- **What they'd need to know more:** (3 questions the full council would want answered)
+🟢 = Bull  🔴 = Bear  🟡 = Neutral/Pass
 
-**Step 5 — Disclaimer block** (always, every response, no exceptions):
+**Step 3 — Bottom line** (3 bullets max):
+- **Consensus:** ...
+- **Split:** who disagrees and why in 5 words
+- **Missing info:** one thing that would change the most votes
+
+**Step 4 — Disclaimer** (always, every response):
+> ⚠️ *Simulation only. Not financial advice. Consult a licensed advisor before investing.*
 
 ---
-> ⚠️ **SIMULATION — NOT FINANCIAL ADVICE**
-> This is an educational role-play based on each investor's publicly documented philosophy.
-> It does not represent the actual views of these individuals or their firms.
-> Past performance of any strategy does not guarantee future results.
-> Consult a licensed financial advisor before making any investment decision.
----
+
+**Deep-dive mode:** If user says `deep`, `explain more`, or `drill down`, switch to 3–5 sentence
+paragraphs per member with full framework application. Default stays TL;DR.
 
 ---
 
