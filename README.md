@@ -1,61 +1,79 @@
 # Investor Council — Claude Code Skill
 
-Convene a panel of legendary investors to analyze your investment ideas. Each council member
-responds in character, applying their own philosophy and mental models to your specific idea.
+> ## ⚠️ IMPORTANT LEGAL DISCLAIMER
+>
+> **This is a fictional educational simulation. It is NOT financial advice.**
+>
+> - All investor personas are AI-generated approximations based solely on each person's
+>   **publicly available books, interviews, shareholder letters, and documented philosophies**.
+> - This project has **no affiliation with, endorsement from, or connection to** Warren Buffett,
+>   Peter Lynch, Benjamin Graham (estate), George Soros, Ray Dalio, Cathie Wood, Charlie Munger
+>   (estate), Berkshire Hathaway, ARK Invest, Bridgewater Associates, or any related firms.
+> - **Nothing in this skill constitutes financial advice, investment advice, or any recommendation
+>   to buy, sell, or hold any security, asset, or financial instrument.**
+> - Simulated perspectives are approximations and may differ entirely from the real individuals'
+>   actual views — past, present, or future.
+> - Investing involves risk. You may lose money. Always consult a **licensed financial advisor**
+>   regulated in your jurisdiction before making any investment decision.
+> - By installing or using this skill you acknowledge it is for **educational and entertainment
+>   purposes only.**
 
-> **This is an educational simulation only. Not financial advice.**
+---
+
+## What It Does
+
+Convenes a fictional panel of 7 legendary investors, each analyzing your investment idea through
+their own publicly documented philosophy. The value is in seeing genuine disagreement between
+radically different frameworks — not in getting a recommendation.
 
 ## Council Members
 
-| Investor | Philosophy | Key Lens |
+| Member | Known For | Key Framework |
 |---|---|---|
-| Warren Buffett | Value investing | Moats, earnings power, long-term |
+| Warren Buffett | Value investing | Moats, owner earnings, hold forever |
 | Peter Lynch | GARP | "Invest in what you know", PEG ratio |
-| Benjamin Graham | Deep value | Margin of safety, book value |
-| George Soros | Macro / reflexivity | Global flows, asymmetric bets |
-| Ray Dalio | All-weather macro | Debt cycles, diversification |
-| Cathie Wood | Disruptive innovation | 5-year exponential growth curves |
-| Charlie Munger | Mental models | Inversion, circle of competence |
+| Benjamin Graham | Deep value | Margin of safety, net-nets |
+| George Soros | Macro / reflexivity | Self-reinforcing narrative loops |
+| Ray Dalio | All-weather macro | Debt cycles, risk parity |
+| Cathie Wood | Disruptive innovation | Wright's Law, 5-year TAM |
+| Charlie Munger | Mental models | Inversion, lollapalooza effects |
 
 ## Install
 
 ```bash
-claude plugin install github:alperer09/investor-council
+claude plugin install github:YOUR_USERNAME/investor-council
 ```
 
 ## Usage
 
 ```
-/investor-council Apple stock — is it a buy at current valuations?
-
-/investor-council buffett What does Buffett think about investing in Bitcoin?
-
-/investor-council compare Index funds vs. active stock picking
+/investor-council NVIDIA at 35x P/E — worth buying?
+/investor-council buffett What does Buffett's framework say about Bitcoin?
+/investor-council compare Index funds vs individual stock picking
+/investor-council devil Apple stock — argue the bear case
+/investor-council debate Bitcoin as a store of value
+/investor-council ghost I want to leverage up on crypto yield farming
+/investor-council bias I bought Tesla at $400, now $180, feels like a deal
 ```
 
-## Examples
+## Commands
 
-**Input:** `/investor-council NVIDIA at current P/E of 35x`
-
-**Output:**
-- **Buffett:** Evaluates the moat in GPU/AI infrastructure, questions paying 35x for cyclical semiconductor demand...
-- **Lynch:** Excited about the AI "tenbagger" narrative but checks PEG and growth sustainability...
-- **Graham:** Flags 35x P/E as dangerously above margin-of-safety thresholds...
-- **Soros:** Sees the AI narrative as reflexive — self-fulfilling until it isn't...
-- **Dalio:** Checks NVIDIA's place in the current debt/innovation cycle...
-- **Wood:** Highest conviction — compounding AI compute demand justifies premium...
-- **Munger:** Asks what the business looks like in 10 years if the AI wave plateaus...
-- **Council Consensus:** broad agreement on moat quality, disagreement on valuation tolerance...
-
-## Disclaimer
-
-This skill role-plays famous investors based on their **publicly known philosophies, books, and
-interviews**. The simulated perspectives are educational approximations, not actual advice from
-these individuals or their firms. The real investors may hold views different from what is
-simulated here.
-
-**Always consult a licensed financial advisor before making investment decisions.**
+| Command | What It Does |
+|---|---|
+| `/investor-council [idea]` | Full 7-member TL;DR table |
+| `/investor-council [name] [idea]` | Single investor deep-dive |
+| `/investor-council compare [A] vs [B]` | Head-to-head council vote |
+| `/investor-council devil [idea]` | All members argue bear case |
+| `/investor-council bull [idea]` | All members argue bull case |
+| `/investor-council debate [idea]` | Two opposed members argue directly |
+| `/investor-council ghost [idea]` | Historical blowup patterns that match |
+| `/investor-council bias` | Detect cognitive biases in your framing |
 
 ## License
 
-MIT
+MIT — free to use, modify, and distribute with attribution.
+
+## Contributing
+
+PRs welcome. All contributions must maintain the educational disclaimer and must not introduce
+any content that could be construed as financial advice.
