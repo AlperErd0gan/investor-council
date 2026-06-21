@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "investor-council",
+  "description": "Convene a panel of legendary investors to analyze your investment ideas. Each member responds in character per their own philosophy. Educational simulation only — not financial advice.",
+  "owner": {
+    "name": "alperer09",
+    "url": "https://github.com/alperer09"
+  },
+  "plugins": [
+    {
+      "name": "investor-council",
+      "description": "Council of Buffett, Lynch, Graham, Soros, Dalio, Wood & Munger analyzing your investments.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

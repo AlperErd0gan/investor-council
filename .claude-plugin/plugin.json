@@ -1,0 +1,8 @@
+{
+  "name": "investor-council",
+  "description": "Simulates a council of legendary investors (Buffett, Lynch, Graham, Soros, Dalio, Wood, Munger) each analyzing your investment idea through their own philosophy. Educational simulation — not financial advice.",
+  "author": {
+    "name": "alperer09",
+    "url": "https://github.com/alperer09"
+  }
+}
