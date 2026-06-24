@@ -1,7 +1,7 @@
 # Investor Council — Claude Code Skill
 
 ![Investor Council Banner](assets/banner.png)
-*Banner generated with [Kling AI](https://klingai.com)*
+*Banner generated with [Gemini](https://gemini.google.com)*
 
 > ## ⚠️ IMPORTANT LEGAL DISCLAIMER
 >
