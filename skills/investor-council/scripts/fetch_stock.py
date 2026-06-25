@@ -12,6 +12,8 @@ Requirements:
 """
 
 import sys
+import warnings
+warnings.filterwarnings("ignore")
 
 try:
     import yfinance as yf
@@ -81,7 +83,12 @@ def fetch(ticker_symbol):
     free_cashflow = info.get("freeCashflow")
     operating_cashflow = info.get("operatingCashflow")
 
-    dividend_yield = info.get("dividendYield")
+    # Yahoo Finance sometimes returns dividend yield as a raw decimal already multiplied
+    # Use trailingAnnualDividendYield which is reliably a decimal (e.g. 0.0003 = 0.03%)
+    dividend_yield = info.get("trailingAnnualDividendYield") or info.get("dividendYield")
+    if dividend_yield and dividend_yield > 0.5:
+        # Sanity cap — no real stock yields >50%; bad data from Yahoo
+        dividend_yield = None
     payout_ratio = info.get("payoutRatio")
 
     week52_high = info.get("fiftyTwoWeekHigh")
