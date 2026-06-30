@@ -41,19 +41,11 @@ input: { "tickers": ["TICKER"] }
 
 Multiple tickers at once: `{ "tickers": ["NVDA", "AMD"] }` — tool returns both in one call.
 
-**Setup (one-time):** run `bash setup.sh` from the project root, then restart Claude Code.
+Requirements (one-time setup): `pip3 install yfinance mcp`
 
-**Fallback if MCP unavailable:** call via Bash instead:
-```bash
-python3 skills/investor-council/scripts/fetch_stock.py TICKER
-```
-
-Priority order:
-1. Try `mcp__investor-council__fetch_stock` tool (preferred — structured tool_use)
-2. If MCP not loaded, fall back to `Bash` with `fetch_stock.py`
-3. If both fail (no Python, no internet): note it briefly, proceed with user-provided data
-
-- For non-stock ideas (macro trends, sectors, strategies): skip fetcher, go straight to council
+- If the tool succeeds: show the data table, then run the council analysis using the real numbers
+- If the tool fails (no internet, bad ticker, rate limit): note it briefly and proceed with whatever data the user provided
+- For non-stock ideas (macro trends, sectors, strategies): skip the tool, go straight to council
 
 ---
 
