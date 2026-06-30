@@ -117,19 +117,25 @@ No preamble. No restating the question. Lead with the take.
 
 **Step 1 — One-line framing:** What is being analyzed. Nothing more.
 
-**Step 2 — Council verdicts** (tight table format):
+**Step 2 — Council verdicts** (plain markdown table — NO unicode box-drawing, NO wide columns):
 
-| Member | 🟢/🔴/🟡 | Their take in one sentence | Key metric/signal |
-|---|---|---|---|
-| Buffett | 🟢/🔴/🟡 | ... | Moat / ROIC / owner earnings |
-| Lynch | 🟢/🔴/🟡 | ... | PEG / story clarity / category |
-| Graham | 🟢/🔴/🟡 | ... | Margin of safety / P/B / net-net |
-| Soros | 🟢/🔴/🟡 | ... | Narrative phase / reflexivity loop |
-| Dalio | 🟢/🔴/🟡 | ... | Debt cycle / correlation / risk |
-| Wood | 🟢/🔴/🟡 | ... | TAM / Wright's Law / disruption |
-| Munger | 🟢/🔴/🟡 | ... | Mental model / inversion result |
+**Table rules (mandatory):**
+- Use standard `| col | col |` markdown only — never unicode box chars (┌┐└┘│─├┤)
+- "Take" column: max 12 words. Hard cut. If longer, split to two rows under same member
+- "Signal" column: one metric name only (e.g. `PEG 0.59`, `ROE 114%`, `P/E 30.5x`)
+- Emoji verdicts on their own: 🟢 🔴 🟡 — no text next to them in that cell
 
-🟢 = Bull  🔴 = Bear  🟡 = Neutral/Pass
+| Member | V | Take (≤12 words) | Signal |
+|--------|---|------------------|--------|
+| Buffett | 🟡 | ROE stellar, P/B 24x outside comfort zone | ROE 114% / P/B 24x |
+| Lynch | 🟢 | PEG 0.59 + 214% earnings growth = tenbagger DNA | PEG 0.59 |
+| Graham | 🔴 | P/E 30x, zero margin of safety by any measure | P/E 30.5x |
+| Soros | 🟡 | AI narrative wobbling — loop not broken, just pausing | Narrative phase |
+| Dalio | 🟡 | Beta 2.2, late-cycle capex boom — machine running hot | Beta / debt cycle |
+| Wood | 🟢 | Revenue +85% YoY, Wright's Law cost curve textbook | TAM / rev growth |
+| Munger | 🔴 | Single-customer concentration risk. Invert: what kills this? | Inversion |
+
+🟢 Bull · 🔴 Bear · 🟡 Neutral
 
 **Step 3 — Bottom line** (3 bullets max):
 - **Consensus:** ...
@@ -210,6 +216,44 @@ When `/investor-council export` is called after an analysis:
    ```
 4. Confirm with: `Saved → ~/investor-council-exports/TICKER-YYYY-MM-DD.md`
 5. Create the directory if it doesn't exist (use Bash: `mkdir -p ~/investor-council-exports`)
+
+---
+
+## Export PDF Mode
+
+When `/investor-council export pdf` is called:
+
+1. Write the markdown file first (same as Export Mode above)
+2. Detect which PDF tool is available — run this check via Bash:
+   ```bash
+   which pandoc || which wkhtmltopdf || python3 -c "import weasyprint" 2>/dev/null && echo weasyprint || echo NONE
+   ```
+3. Convert based on what's found:
+
+   **pandoc** (preferred):
+   ```bash
+   pandoc ~/investor-council-exports/TICKER-DATE.md \
+     -o ~/investor-council-exports/TICKER-DATE.pdf \
+     -V geometry:margin=1in \
+     -V fontsize=11pt \
+     --standalone
+   ```
+
+   **weasyprint** (Python fallback):
+   ```bash
+   python3 -c "
+   import markdown, weasyprint, pathlib, sys
+   md = pathlib.Path(sys.argv[1]).read_text()
+   html = '<meta charset=utf-8><style>body{font-family:sans-serif;max-width:800px;margin:40px auto;padding:0 20px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px}th{background:#f5f5f5}</style>' + markdown.markdown(md, extensions=['tables'])
+   weasyprint.HTML(string=html).write_pdf(sys.argv[1].replace('.md','.pdf'))
+   " ~/investor-council-exports/TICKER-DATE.md
+   ```
+
+   **Neither available:** tell user to run `brew install pandoc` then retry.
+
+4. Confirm with: `PDF saved → ~/investor-council-exports/TICKER-YYYY-MM-DD.pdf`
+
+**Auto-install note:** add `markdown weasyprint` to `setup.sh` so weasyprint fallback always works after setup.
 
 ---
 

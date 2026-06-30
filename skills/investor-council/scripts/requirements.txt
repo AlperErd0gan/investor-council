@@ -1,2 +1,4 @@
 yfinance>=1.0.0
 mcp>=1.0.0
+markdown>=3.5
+weasyprint>=60.0
