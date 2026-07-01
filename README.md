@@ -44,7 +44,7 @@ radically different frameworks — not in getting a recommendation.
 ## Install
 
 ```bash
-claude plugin install github:YOUR_USERNAME/investor-council
+claude plugin install github:AlperErd0gan/investor-council
 ```
 
 ## Usage

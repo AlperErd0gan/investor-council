@@ -1,8 +1,11 @@
 {
   "name": "investor-council",
+  "version": "1.2.0",
   "description": "Simulates a council of legendary investors (Buffett, Lynch, Graham, Soros, Dalio, Wood, Munger) each analyzing your investment idea through their own philosophy. Educational simulation — not financial advice.",
+  "license": "MIT",
+  "homepage": "https://github.com/AlperErd0gan/investor-council#readme",
   "author": {
     "name": "Alper Erdogan",
-    "url": "https://github.com/alperer09"
+    "url": "https://github.com/AlperErd0gan"
   }
 }

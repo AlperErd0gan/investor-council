@@ -1,2 +1,10 @@
 .DS_Store
 *.skill
+
+# local Claude Code install artifacts
+.claude/
+
+# python
+__pycache__/
+*.pyc
+.venv/
