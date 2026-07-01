@@ -44,7 +44,17 @@ radically different frameworks — not in getting a recommendation.
 ## Install
 
 ```bash
-claude plugin install github:AlperErd0gan/investor-council
+# 1. add this repo as a marketplace
+claude plugin marketplace add AlperErd0gan/investor-council
+
+# 2. install the plugin from it
+claude plugin install investor-council@investor-council
+```
+
+The MCP server needs Python deps for live stock data. After install:
+
+```bash
+pip install -r skills/investor-council/scripts/requirements.txt
 ```
 
 ## Usage

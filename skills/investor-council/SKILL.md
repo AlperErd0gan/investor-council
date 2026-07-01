@@ -117,6 +117,7 @@ No preamble. No restating the question. Lead with the take.
 
 **Step 1 — One-line framing:** What is being analyzed. Nothing more.
 
+
 **Step 2 — Council verdicts** (plain markdown table — NO unicode box-drawing, NO wide columns):
 
 **Table rules (mandatory):**
