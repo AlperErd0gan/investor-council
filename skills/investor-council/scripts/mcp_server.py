@@ -63,6 +63,7 @@ async def list_tools() -> list[types.Tool]:
                         "items": {"type": "string"},
                         "description": "One or more ticker symbols, e.g. [\"NVDA\", \"AAPL\"]",
                         "minItems": 1,
+                        "maxItems": 20,
                     }
                 },
                 "required": ["tickers"],
@@ -79,13 +80,16 @@ async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
     tickers = arguments.get("tickers", [])
     if not tickers:
         return [types.TextContent(type="text", text="ERROR: no tickers provided")]
+    if len(tickers) > 20:
+        return [types.TextContent(type="text", text="ERROR: too many tickers (max 20 per call)")]
 
     parts = []
     for ticker in tickers:
         try:
             parts.append(fetch(ticker))
         except Exception as e:
-            parts.append(f"ERROR fetching {ticker}: {e}")
+            # generic — don't leak internal exception detail into model context
+            parts.append(f"ERROR: fetch failed ({type(e).__name__}). Check the ticker symbol.")
 
     return [types.TextContent(type="text", text="\n\n---\n\n".join(parts))]
 

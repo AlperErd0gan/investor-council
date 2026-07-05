@@ -11,9 +11,13 @@ Requirements:
     pip3 install yfinance
 """
 
+import re
 import sys
 import warnings
 warnings.filterwarnings("ignore")
+
+# Valid Yahoo Finance symbols: letters, digits, and . - ^ = (e.g. BRK.B, BTC-USD, ^GSPC)
+TICKER_RE = re.compile(r"^[A-Za-z0-9.\-^=]{1,15}$")
 
 try:
     import yfinance as yf
@@ -46,17 +50,36 @@ def pct(val, fallback="N/A"):
         return fallback
 
 
+def clean(text, max_len=80, fallback="N/A"):
+    """Sanitize text that arrives from the Yahoo API before it is embedded in
+    the report: strip characters that would break markdown tables or let a
+    hostile payload masquerade as instructions, and cap the length."""
+    if not isinstance(text, str):
+        return fallback
+    return re.sub(r"[\r\n|`<>]", " ", text)[:max_len].strip() or fallback
+
+
 def fetch(ticker_symbol):
-    ticker = yf.Ticker(ticker_symbol.upper())
-    info = ticker.info
+    ticker_symbol = str(ticker_symbol).strip()
+    if not TICKER_RE.match(ticker_symbol):
+        return "ERROR: invalid ticker symbol (letters, digits, . - ^ = only, max 15 chars)."
+
+    try:
+        ticker = yf.Ticker(ticker_symbol.upper())
+        info = ticker.info
+    except Exception:
+        # yfinance raises on some malformed symbols (e.g. 12-char strings are
+        # treated as ISINs -> "Invalid ISIN number"). Funnel into the same
+        # graceful message as an empty/priceless result instead of leaking.
+        return f"ERROR: Could not fetch data for {ticker_symbol.upper()}. Check the ticker symbol."
 
     if not info or (info.get("regularMarketPrice") is None and info.get("currentPrice") is None):
         return f"ERROR: Could not fetch data for {ticker_symbol.upper()}. Check the ticker symbol."
 
-    name = info.get("longName") or info.get("shortName") or ticker_symbol.upper()
-    sector = info.get("sector", "N/A")
-    industry = info.get("industry", "N/A")
-    currency = info.get("currency", "USD")
+    name = clean(info.get("longName") or info.get("shortName"), fallback=ticker_symbol.upper())
+    sector = clean(info.get("sector"))
+    industry = clean(info.get("industry"))
+    currency = clean(info.get("currency"), max_len=8, fallback="USD")
 
     price = info.get("currentPrice") or info.get("regularMarketPrice")
     market_cap = info.get("marketCap")
@@ -99,7 +122,7 @@ def fetch(ticker_symbol):
     beta = info.get("beta")
 
     target_mean = info.get("targetMeanPrice")
-    recommendation = (info.get("recommendationKey") or "N/A").upper()
+    recommendation = clean(info.get("recommendationKey"), max_len=20).upper()
     analyst_count = info.get("numberOfAnalystOpinions")
 
     pct_from_high = None
