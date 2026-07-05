@@ -50,7 +50,10 @@ claude plugin marketplace add AlperErd0gan/investor-council
 # 2. install the plugin from it
 claude plugin install investor-council@investor-council
 ```
-
+## Update
+```bash/exir
+ claude plugin marketplace update investor-council
+```
 The MCP server needs Python deps for live stock data. After install:
 
 ```bash

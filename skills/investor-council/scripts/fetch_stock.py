@@ -18,7 +18,9 @@ warnings.filterwarnings("ignore")
 try:
     import yfinance as yf
 except ImportError:
-    print("ERROR: yfinance not installed. Run: pip3 install yfinance")
+    # stderr, not stdout — this module is also imported by mcp_server.py,
+    # where stdout is the MCP protocol channel
+    print("ERROR: yfinance not installed. Run: pip3 install yfinance", file=sys.stderr)
     sys.exit(1)
 
 
@@ -48,7 +50,7 @@ def fetch(ticker_symbol):
     ticker = yf.Ticker(ticker_symbol.upper())
     info = ticker.info
 
-    if not info or info.get("regularMarketPrice") is None and info.get("currentPrice") is None:
+    if not info or (info.get("regularMarketPrice") is None and info.get("currentPrice") is None):
         return f"ERROR: Could not fetch data for {ticker_symbol.upper()}. Check the ticker symbol."
 
     name = info.get("longName") or info.get("shortName") or ticker_symbol.upper()
@@ -60,7 +62,8 @@ def fetch(ticker_symbol):
     market_cap = info.get("marketCap")
     pe_trailing = info.get("trailingPE")
     pe_forward = info.get("forwardPE")
-    peg = info.get("pegRatio")
+    # newer yfinance versions dropped "pegRatio" from info; "trailingPegRatio" remains
+    peg = info.get("pegRatio") or info.get("trailingPegRatio")
     pb = info.get("priceToBook")
     ps = info.get("priceToSalesTrailing12Months")
     ev_ebitda = info.get("enterpriseToEbitda")

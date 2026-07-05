@@ -2,10 +2,10 @@
 name: investor-council
 description: Simulates a council of 7 legendary investors (Buffett, Lynch, Graham, Soros, Dalio, Wood, Munger) each analyzing your investment idea through their own publicly documented philosophy. Educational simulation only — NOT financial advice. Use when user says "investor council", "what would Buffett think", "analyze this investment", "should I buy", "is this a good investment", "get investor perspectives", "what would X think about Y", "council review", "analyze this stock", "watchlist", "rank these stocks", "export analysis", or invokes /investor-council.
 license: MIT
-allowed-tools: "mcp__investor-council__fetch_stock,Bash,Write"
+allowed-tools: "mcp__investor-council__fetch_stock,Read,Bash,Write"
 metadata:
   author: Alper Erdogan
-  version: 1.1.0
+  version: 1.2.0
   category: finance
   tags: [investing, education, simulation, finance, buffett, analysis]
 ---
@@ -43,9 +43,11 @@ Multiple tickers at once: `{ "tickers": ["NVDA", "AMD"] }` — tool returns both
 
 **Setup (one-time):** run `bash setup.sh` from the project root, then restart Claude Code.
 
-**Fallback if MCP unavailable:** call via Bash instead:
+**Fallback if MCP unavailable:** call via Bash instead, using the `scripts/` directory inside
+this skill's own folder (the directory containing this SKILL.md — resolve it from where the
+skill was loaded, not from the user's working directory):
 ```bash
-python3 skills/investor-council/scripts/fetch_stock.py TICKER
+python3 <this-skill-dir>/scripts/fetch_stock.py TICKER
 ```
 
 Priority order:
@@ -59,7 +61,7 @@ Priority order:
 
 ## Investor Profiles
 
-**Always load `skills/investor-council/references/investor-profiles.md` at the start of every session.** It contains each member's full philosophy, frameworks, voice patterns, and signature phrases. Without it, voices blur. With it, you can reproduce their cadence precisely.
+**Always load `references/investor-profiles.md` (relative to this skill's directory) at the start of every session.** It contains each member's full philosophy, frameworks, voice patterns, and signature phrases. Without it, voices blur. With it, you can reproduce their cadence precisely.
 
 Rules that follow from loading profiles:
 - Each member **must** use at least one of their documented signature phrases per response
@@ -117,7 +119,6 @@ No preamble. No restating the question. Lead with the take.
 
 **Step 1 — One-line framing:** What is being analyzed. Nothing more.
 
-
 **Step 2 — Council verdicts** (plain markdown table — NO unicode box-drawing, NO wide columns):
 
 **Table rules (mandatory):**
@@ -170,6 +171,7 @@ paragraphs per member with full framework application. Default stays TL;DR.
 | `/investor-council bias` | Detect cognitive biases in how the user framed their idea |
 | `/investor-council watchlist [T1] [T2] ...` | Rank multiple tickers by council consensus score |
 | `/investor-council export` | Save last analysis to markdown file |
+| `/investor-council export pdf` | Save last analysis as PDF (pandoc or weasyprint) |
 
 ---
 
@@ -227,7 +229,10 @@ When `/investor-council export pdf` is called:
 1. Write the markdown file first (same as Export Mode above)
 2. Detect which PDF tool is available — run this check via Bash:
    ```bash
-   which pandoc || which wkhtmltopdf || python3 -c "import weasyprint" 2>/dev/null && echo weasyprint || echo NONE
+   if command -v pandoc >/dev/null 2>&1; then echo pandoc
+   elif python3 -c "import weasyprint" 2>/dev/null; then echo weasyprint
+   else echo NONE
+   fi
    ```
 3. Convert based on what's found:
 
@@ -250,11 +255,9 @@ When `/investor-council export pdf` is called:
    " ~/investor-council-exports/TICKER-DATE.md
    ```
 
-   **Neither available:** tell user to run `brew install pandoc` then retry.
+   **Neither available:** tell user to run `bash setup.sh` (installs weasyprint) or `brew install pandoc`, then retry.
 
 4. Confirm with: `PDF saved → ~/investor-council-exports/TICKER-YYYY-MM-DD.pdf`
-
-**Auto-install note:** add `markdown weasyprint` to `setup.sh` so weasyprint fallback always works after setup.
 
 ---
 

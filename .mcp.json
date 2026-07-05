@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "investor-council": {
-      "command": "python3",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/skills/investor-council/scripts/mcp_server.py"]
+      "command": "bash",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/skills/investor-council/scripts/run_mcp.sh"]
     }
   }
 }
