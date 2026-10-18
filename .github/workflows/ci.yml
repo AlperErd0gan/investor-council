@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+      - name: Versions in sync
+        run: |
+          v=$(node -p "require('./package.json').version")
+          grep -q "\"version\": \"$v\"" .claude-plugin/plugin.json
+          grep -q "version: $v" skills/investor-council/SKILL.md
+          grep -q "investor-council-mcp@$v" skills/investor-council/SKILL.md
+      - run: npm pack --dry-run

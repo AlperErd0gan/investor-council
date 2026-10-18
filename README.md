@@ -1,6 +1,6 @@
 # Investor Council — Claude Code Skill
 
-![Investor Council Banner](assets/banner.png)
+![Investor Council Banner](https://raw.githubusercontent.com/AlperErd0gan/investor-council/main/assets/banner.png)
 *Banner generated with [Gemini](https://gemini.google.com)*
 
 > ## ⚠️ IMPORTANT LEGAL DISCLAIMER
@@ -43,6 +43,8 @@ radically different frameworks — not in getting a recommendation.
 
 ## Install
 
+### Claude Code (plugin — skill + MCP server)
+
 ```bash
 # 1. add this repo as a marketplace
 claude plugin marketplace add AlperErd0gan/investor-council
@@ -50,15 +52,62 @@ claude plugin marketplace add AlperErd0gan/investor-council
 # 2. install the plugin from it
 claude plugin install investor-council@investor-council
 ```
-## Update
-```bash/exir
- claude plugin marketplace update investor-council
-```
-The MCP server needs Python deps for live stock data. After install:
+
+Update:
 
 ```bash
-pip install -r skills/investor-council/scripts/requirements.txt
+claude plugin marketplace update investor-council
 ```
+
+The only requirement is **Node.js 18.17+** on your `PATH`. There is no Python, no `pip`, and no `npm install`.
+The MCP server has zero dependencies and runs straight from the plugin folder.
+
+### Other MCP clients (Claude Desktop, Cursor, …) — via npm
+
+```json
+{
+  "mcpServers": {
+    "investor-council": {
+      "command": "npx",
+      "args": ["-y", "investor-council-mcp@1.3.0"]
+    }
+  }
+}
+```
+
+CLI, handy for checking the data yourself:
+
+```bash
+npx -y investor-council-mcp@1.3.0 fetch BTC-USD ETH-USD
+```
+
+## Data sources
+
+| Asset | Source | Notes |
+|---|---|---|
+| Crypto (`BTC-USD`, `ETH-USD`, …) | [CoinGecko](https://www.coingecko.com/en/api) public API, via the bundled MCP tool `fetch_crypto` | Price, market cap and rank, 24h change, distance from ATH, supply. Free, keyless, no account or email |
+| Stocks, ETFs, indices | Claude's web search | Price, P/E, PEG, margins, ROE, debt, growth. The skill cites the source and as-of date for each figure, and applies the council's auto-flag thresholds |
+
+Stock figures from web search are less consistent than a structured feed. Check the cited
+sources before relying on any number.
+
+## Security
+
+- The MCP server has **zero runtime dependencies** and contacts only `api.coingecko.com`.
+  Redirects are refused, responses are size- and time-capped, and symbols are validated before
+  they reach a URL. It sends no personal data: no email, account or API key.
+- Text from upstream APIs is stripped down to letters, digits and basic punctuation before it
+  reaches the model, so a hostile coin name can't inject markdown, links or instructions.
+- Upstream requests are rate-limited (≤2 in flight, ≥500 ms apart) to respect CoinGecko's
+  public tier, and each tool call has a 60 s budget. Stdin lines are capped at 1 MB.
+- The skill pre-approves only the fetch tool and writes inside `~/investor-council-exports/`.
+  Web searches and shell commands (pandoc, the CLI fallback) still ask you first.
+- PDF export runs pandoc with raw TeX/HTML disabled and `--sandbox`. HTML export carries a CSP
+  that blocks scripts and network loads.
+- Full audit: [docs/SECURITY-AUDIT.md](docs/SECURITY-AUDIT.md).
+- The npm package is published from CI with [provenance](https://docs.npmjs.com/generating-provenance-statements).
+
+Report vulnerabilities privately via GitHub Security Advisories, not public issues.
 
 ## Usage
 
