@@ -17,8 +17,8 @@
     "node": ">=18.17"
   },
   "scripts": {
-    "test": "node --test test/",
-    "test:live": "LIVE=1 node --test test/"
+    "test": "node --test test/*.test.mjs",
+    "test:live": "LIVE=1 node --test test/*.test.mjs"
   },
   "keywords": [
     "mcp",
